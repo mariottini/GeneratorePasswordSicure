@@ -41,4 +41,5 @@ Un progetto Python per generare password casuali sicure. Le password vengono cre
 ### Struttura della repository:
 - **/src**: Codice sorgente del progetto
 - **/docs**: Documentazione e relazione finale
+- **/drafts**: Bozze e idee per la realizzazione del progetto
 - **README.md**: Guida al progetto
