@@ -1,0 +1,4 @@
+src/venv/*
+
+!src/venv/main.py
+!src/venv/PasswordGenerator.py
