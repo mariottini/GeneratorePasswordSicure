@@ -7,3 +7,5 @@ docs/*
 
 !docs/report.tex
 !docs/report.pdf
+
+*/*.DS_Store
