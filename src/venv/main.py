@@ -1,22 +1,22 @@
-from random import random 
-import string
-from PasswordGenerator import lista_caratteri 
-i = 0 
+from PasswordGenerator import PasswordGenerator
+import random
 
-lista1 = list(string.ascii_lowercase)
-lista2 = list(string.ascii_uppercase)
-lista3 = list(string.digits)
-lista4 = list(string.punctuation)
+pwGenerator = PasswordGenerator()
+# print(f"lowercase: {pwGenerator.lowercase} \n"
+    #   f"uppercase: {pwGenerator.uppercase} \n"
+    #   f"digits: {pwGenerator.digits} \n"
+    #   f"special chars: {pwGenerator.specialChars}")
 
-listaspecifica = int(input("quante liste vuoi aggiungere?: "))
-while listaspecifica > 4:
-      listaspecfica = int(input("numero massimo superato, riprova: "))
-while i < listaspecifica:
-         n = int(input(f"numero {i+1}: "))
-         i = i+1
-         valori = lista_caratteri (lista1,lista2,lista3,lista4,n)
-         print (valori)
+# print(f"random lowercase char:\n {random.choice(pwGenerator.lowercase)}")    
+# print(f"5 random lowercase chars:\n {random.choices(pwGenerator.lowercase, k=5)}") 
 
+print("PASSWORD GENERATOR")
+lunghezzaPW = input("Quanto deve essere lunga la password? ")
+print("Quali set di caratteri vuoi che vengano utilizzati nellagenerazione della password?\n"
+      "[1] lowercase\n"
+      "[2] uppercase\n"
+      "[3] digits\n"
+      "[4] specialChars\n")
+scelta=input()
 
-
-
+print(scelta)
