@@ -1,0 +1,52 @@
+\documentclass[twocolumn]{article}
+
+\title{Generatore Password Sicure}
+\author{Mariottini, Ramazzini, Florea, Trandela, Cont}
+\date{}
+
+\usepackage{lipsum}
+\usepackage{xparse}
+\usepackage{xcolor}
+% \usepackage[margin=2cm]{geometry} su tutti i lati
+
+\NewDocumentCommand{\codeword}{v}{
+    \texttt{\textcolor{blue}{#1}}
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduzione}
+
+    \subsection{Descrizione}
+
+        Un progetto Python per generare password casuali sicure. Le password vengono create combinando lettere maiuscole, minuscole, numeri e caratteri speciali. Il programma offre funzionalità di personalizzazione, come la scelta della lunghezza e dei tipi di caratteri da includere, e fornisce una valutazione della forza delle password generate.
+
+\section{Guida al progetto}
+
+    \subsection{Tecnologie utilizzate}
+
+        \begin{itemize}            
+            \item Python 3.x
+            \item Tkinter (per l'interfaccia grafica)
+            \item GitHub (per la gestione del progetto e il versionamento)
+        \end{itemize}
+
+    \subsection{Struttura del progetto}
+
+        \begin{itemize}
+            \item \codeword{/src} codice sorgente
+            \item \codeword{/docs} documentazione e relazione finale
+            \item \codeword{/drafts} bozze e idee per la realizzazione del progetto
+        \end{itemize}
+
+\section{Diario}
+
+    \subsection{Day1 - 04/12/2024}
+        \begin{itemize}
+            \item Brainstorming idee realizzazione progetto
+            \item Divisione ruoli
+        \end{itemize}
+
+\end{document}

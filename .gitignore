@@ -2,3 +2,8 @@ src/venv/*
 
 !src/venv/main.py
 !src/venv/PasswordGenerator.py
+
+docs/*
+
+!docs/report.tex
+!docs/report.pdf
