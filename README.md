@@ -11,6 +11,7 @@ Un progetto Python per generare password casuali sicure. Le password vengono cre
 - _Cont_
 - _Ramazzini_
 - _Trandela_
+- _Nazih_
 
 ## To-Do
 
