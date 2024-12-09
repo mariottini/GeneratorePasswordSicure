@@ -1,14 +1,19 @@
 from PasswordGenerator import PasswordGenerator
 import random
 
+
 pwGenerator = PasswordGenerator()
-# print(f"lowercase: {pwGenerator.lowercase} \n"
-    #   f"uppercase: {pwGenerator.uppercase} \n"
-    #   f"digits: {pwGenerator.digits} \n"
-    #   f"special chars: {pwGenerator.specialChars}")
 
-# print(f"random lowercase char:\n {random.choice(pwGenerator.lowercase)}")    
-# print(f"5 random lowercase chars:\n {random.choices(pwGenerator.lowercase, k=5)}") 
+print("***** GENERATORE PASSWORD SICURE *****")
+print("Specificare la lunghezza della password...")
+pwLength = int(input())
+print("Scegliere i tipi di caratteri da utilizzare per generare la password...\n"
+      "[Scrivere i numeri dei tipi desiderati senza separarli.]\n"
+      "[1] Lettere minuscole\n"
+      "[2] Lettere maiuscole\n"
+      "[3] Cifre\n"
+      "[4] Caratteri speciali")
+charTypes = input()
 
-
-
+pwGenerator.buildCharsAvailable([1,2,3,4]) # Supponiamo charTypes = [1,2,3,4]
+print(pwGenerator.buildPassword(pwLength))
