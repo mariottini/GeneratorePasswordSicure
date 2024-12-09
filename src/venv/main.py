@@ -1,6 +1,4 @@
 from PasswordGenerator import PasswordGenerator
-import random
-
 
 pwGenerator = PasswordGenerator()
 
