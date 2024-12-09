@@ -60,29 +60,37 @@ class PasswordGenerator:
             i += 1
         return self.password
 
-    def userInput(charTypes):
-        while True:
+    '''
+        Converte l'input dell'utente per la scelta dei set di caratteri in una lista di interi    
+    '''
+    def userInput(self, charTypes):
+        # while True:
             try:
                 # Trasforma l'input in una lista di numeri interi
                 charTypes = [int(c) for c in charTypes]
 
                 # Inserisce in una nuova lista solo i numeri validi, senza duplicati
-                newArray = []
+                newList = []
                 for n in charTypes:
                     if n > 4 or n < 1:
                         raise ValueError
-                    if n not in newArray:
-                        newArray.append(n)
+                    if n not in newList:
+                        newList.append(n)
 
-                return newArray
+                return newList
             
             except ValueError:
                 print("Input non valido! Inserire solo numeri tra 1 e 4.")
+                return False
             except Exception:
                 print("Errore sconosciuto.")
+                return False
 
+    '''
+        Calcola l'entropia della password generata.
+        [Entropia → Misurazione in bit dell'imprevedibilità di una password]
+    '''
     def pwStrength(self, password):
-        """Calcola l'entropia della password."""
         pwToList = list(password)  # Converte la password in una lista di caratteri
         entropy = 0  # Inizializza l'entropia a zero
         # Inizializzazione booleani per aggiornare la variante dei carateri solamente una volta per ogni set di caratteri
@@ -127,24 +135,18 @@ class PasswordGenerator:
         entropy = math.log2(entropy) * len(password)
         return entropy
     
-    def calcViolation(entropy):
+    '''
+        Calcola numero di tentativi e tempo necessari per violare la password generata
+    '''
+    def calcViolation(self, entropy):
         tries = 2**entropy # Numero massimo di tentativi per violare la password
-        triesPerSec = 10000 # Numero indicativo di tentativi al secondo compiuti dal PC attaccante
+        triesPerSec = 1*(10**9) # Numero indicativo di tentativi al secondo compiuti dal PC attaccante
         # Tempo necessari per violare la password in secondi, minuti, ore
         seconds = tries/triesPerSec
-        # minutes = seconds/60
-        # hours = minutes/60
+        minutes = seconds/60
+        hours = minutes/60
+        days = hours/24
+        years = days/365
 
-        i = 0
-        while i < seconds:
-            if seconds > 59:
-                minutes += 1
-                seconds = 0
-
-            if minutes > 59:
-                hours += 1
-                minutes = 0
-
-            i += 60
-
-        return f"Se un PC esegue un attacco brute force, per violare la password effettuerà un massimo di {tries} tentativi. Se il PC esegue l'attacco ad una velcoità di {triesPerSec} tentativi al secondo, ci impiegherà {hours} ore, {minutes} minuti, {seconds} secondi."
+        return f"Se un PC esegue un attacco brute force, per violare la password effettuerà un massimo di {tries} tentativi.\n" \
+                f"Se il PC esegue l'attacco ad una velcoità di {triesPerSec} tentativi al secondo, ci impiegherà {years:.0f} anni / {days:.0f} giorni / {hours:.0f} ore / {minutes:.0f} minuti / {seconds:.0f} secondi."
