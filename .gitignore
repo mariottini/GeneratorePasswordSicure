@@ -4,10 +4,15 @@ src/venv/*
 !src/venv/PasswordGenerator.py
 
 
-docs/*
+docs/report/*
 
-!docs/report.tex
-!docs/report.pdf
+!docs/report/report.tex
+!docs/report/report.pdf
+
+docs/documentation/*
+
+!docs/documentation/documentation.tex
+!docs/documentation/documentation.pdf
 
 
 */*.DS_Store
