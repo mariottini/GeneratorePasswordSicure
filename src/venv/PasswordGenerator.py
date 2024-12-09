@@ -22,6 +22,45 @@ class PasswordGenerator:
 
     def generatePw(self): #funzione che genera password
         pass
+
+    def InputUser():
+     while True:
+        try:
+            # Input per la lunghezza della password
+            LunghezzPass = int(input("Inserire quanti caratteri deve essere lunga la password: "))
+
+            # Input per i set di caratteri
+            NumCorrispondeAllaLista = input("Quali set di caratteri vuoi che vengano utilizzati nella generazione della password?\n"
+                                             "[1] lowercase\n"
+                                             "[2] uppercase\n"
+                                             "[3] digits\n"
+                                             "[4] specialChars\n")
+            
+            # Trasforma l'input in una lista di numeri interi
+            NumCorrispondeAllaLista = [int(c) for c in NumCorrispondeAllaLista]
+
+            # Controllo per rimuovere duplicati e valori non validi
+            NuovoArray = []
+            for numero in NumCorrispondeAllaLista:
+                if numero > 4 or numero < 0:
+                    raise ValueError("Attenzione, inserire solamente cifre tra 0 e 4")
+                if numero not in NuovoArray:
+                    NuovoArray.append(numero)
+
+            # Output dell'array di set di caratteri scelti
+            print("Questo è il nuovo array con le scelte valide:")
+            print(NuovoArray)
+            
+            # Rompi il ciclo se tutto è corretto
+            break
+        except ValueError as e:
+            print(e)
+            print("Hai inserito un input non valido! Riprova.")
+        except Exception as e:
+            print("Errore non previsto:", e)
+
+
+    
     def HowStrongIsPw(self, Password):
         """Calcola l'entropia della password."""
         PasswordInList = list(Password)  # Converte la password in una lista di caratteri
@@ -91,17 +130,14 @@ class PasswordGenerator:
         print(
     f"In ore: {ore:.2f} ore"
 )  
-        print("I numeri sono stati ottenuti partendo dal pressuposto che il calcolatore vada a eseguire 10000 tentativi al secondo")
-        def charsAvailableBuilder():
-         return
         print("Livello di sicurezza password:")
         for _ in tqdm(range(strength_percentage), total=100, desc="Strength", ncols=100,mininterval=0.1):
          pass
+        print("I numeri sono stati ottenuti partendo dal pressuposto che il calcolatore vada a eseguire 10000 tentativi al secondo")
+    def charsAvailableBuilder():
+         return
+    
 
+    
 
-# Test del codice
-checker = PasswordGenerator()
-password = input("Inserisci la password: ")
-entropy = checker.HowStrongIsPw(password)
-checker.display_PwBar(entropy,password)
 
