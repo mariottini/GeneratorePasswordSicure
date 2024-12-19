@@ -2,15 +2,14 @@ src/venv/*
 
 !src/venv/main.py
 !src/venv/PasswordGenerator.py
+!src/venv/gui.py
 
 
 docs/report/*
+docs/documentation/*
 
 !docs/report/report.tex
 !docs/report/report.pdf
-
-docs/documentation/*
-
 !docs/documentation/documentation.tex
 !docs/documentation/documentation.pdf
 

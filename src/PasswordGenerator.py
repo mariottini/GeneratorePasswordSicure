@@ -42,13 +42,13 @@ class PasswordGenerator:
         Costruisce la password scegliendo casualmente un carattere nella lista generata da buildCharsAvailable(), 
         la scelta viene ripetuta fino a raggiungere il valore di lunghezza fornito dall'utente
     '''
-    def buildPassword(self, length):
+    def buildPassword(self, length, charsAvailable):
         i = 0
-        while i <= length: # Ripete fino a raggiungere la lunghezza inserita dall'utente
-            randomChoice = random.randint(1, len(self.charsAvailable)) # Genera un indice casuale tra 1 e la lunghezza della lista charsAvailable.
-            for j in range(1, len(self.charsAvailable)): # Scorre la lista charsAvailable
+        while i < length: # Ripete fino a raggiungere la lunghezza inserita dall'utente
+            randomChoice = random.randint(0, len(charsAvailable)-1) # Genera un indice casuale tra 0 e la lunghezza della lista charsAvailable-1.
+            for j in range(0, len(charsAvailable)): # Scorre la lista charsAvailable
                 if j == randomChoice:
-                    self.password += self.charsAvailable[j-1] # Aggiunge il carattere corrispondente all'indice.
+                    self.password += charsAvailable[j] # Aggiunge il carattere corrispondente all'indice.
             i += 1
         return self.password
 
