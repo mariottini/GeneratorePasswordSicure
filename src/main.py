@@ -6,8 +6,6 @@ print("***** GENERATORE PASSWORD SICURE *****")
 print("Specificare la lunghezza della password...")
 pwLength = int(input())
 
-# !!!!!!!! ESEGUIRE CONTROLLI SU  LUNGHEZZA PW
-
 print("Scegliere i tipi di caratteri da utilizzare per generare la password...\n"
       "[Scrivere i numeri dei tipi desiderati senza separarli.]\n"
       "[1] Lettere minuscole\n"
@@ -24,8 +22,8 @@ while userList == False:
             "[3] Cifre\t"
             "[4] Caratteri speciali")
 
-pwGenerator.buildCharsAvailable(userList)
-password = pwGenerator.buildPassword(pwLength)
+charsAvailable = pwGenerator.buildCharsAvailable(userList)
+password = pwGenerator.buildPassword(pwLength, charsAvailable)
 print(f"Password → {password}")
 entropy = pwGenerator.pwStrength(password)
 print(f"Entropia → {entropy}")
