@@ -14,4 +14,7 @@ docs/documentation/*
 !docs/documentation/documentation.pdf
 
 
+src/__pycache__
+
+
 */*.DS_Store
