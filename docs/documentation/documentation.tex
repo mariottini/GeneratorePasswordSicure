@@ -1,27 +1,115 @@
-\documentclass{scrartcl}
+\documentclass{article}
 
-\title{Generatore Password Sicure}
-\author{Mariottini, Ramazzini, Florea, Trandela, Cont, Nazih}
+\title{PasswordGenerator.py \\ \large Documentazione}
+\author{}
 \date{}
 
 \usepackage{lipsum}
+\usepackage{outlines}
 \usepackage{xparse}
 \usepackage{xcolor}
-% \usepackage[margin=2cm]{geometry} su tutti i lati
+\usepackage{listings}
 
-\NewDocumentCommand{\codeword}{v}{
-    \texttt{\textcolor{blue}{#1}}
+\lstdefinestyle{smallcode}{
+    basicstyle=\small\ttfamily,
+    columns=fullflexible,
+    keepspaces=true,
+    xleftmargin=0.5em,
+    xrightmargin=0.5em,
 }
-
+    
 \begin{document}
-
+    
     \maketitle
 
-    \section{Introduzione}
+    \section*{Panoramica}
+        La classe \texttt{PasswordGenerator} fornisce funzionalità per generare password sicure basate su set di caratteri definiti dall'utente. Include anche metodi per calcolare la complessità, l'entropia, la forza della password generata e il tempo necessario per violarla con un attacco brute force.
 
-        \subsection{Descrizione}
+    \section*{Attributi}
+        \begin{outline}
+            \1 \texttt{lowercase}: Lista di lettere minuscole
+            \1 \texttt{uppercase}: Lista di lettere maiuscole
+            \1 \texttt{digits}: Lista di cifre
+            \1 \texttt{specialChars}: Lista di caratteri speciali
+            \1 \texttt{charsAvailable}: Lista di caratteri disponibili per la generazione della password basata sulle scelte dell'utente
+            \1 \texttt{password}: La password generata come stringa
+        \end{outline}
 
-            \lipsum[5]
+    \section*{Metodi}
+        \subsection*{\texttt{\_\_init\_\_(self)}}
+            Inizializza gli attributi della classe \texttt{PasswordGenerator}.
+        
+        \subsection*{\texttt{buildCharsAvailable(self, choices)}}
+            Costruisce una lista di caratteri disponibili per la generazione della password basata sulle scelte dell'utente.
+            \begin{outline}
+                \1 \textbf{Parametri}:
+                    \2 \texttt{choices} (lista di int): Lista contenente le scelte dei tipi di carattere (1 per lettere minuscole, 2 per lettere maiuscole, 3 per cifre, 4 per caratteri speciali).
+                \1 \textbf{Restituisce}:
+                    \2 \texttt{charsAvailable} (lista di str): Lista di caratteri disponibili per la generazione della password.
+            \end{outline}
+        
+        \subsection*{\texttt{buildPassword(self, length, charsAvailable)}}
+            Genera una password della lunghezza specificata utilizzando i caratteri dal set disponibile.
+            \begin{outline}
+                \1 \textbf{Parametri}:
+                    \2 \texttt{length} (int): La lunghezza desiderata della password.
+                    \2 \texttt{charsAvailable} (lista di str): Lista di caratteri disponibili per la generazione della password.
+                \1 \textbf{Restituisce}:
+                    \2 \texttt{password} (str): La password generata.
+            \end{outline}
 
+        \subsection*{\texttt{userInput(self, charTypes)}}
+            Converte l'input dell'utente per le scelte dei set di caratteri in una lista di interi.
+            \begin{outline}
+                \1 \textbf{Parametri}:
+                    \2 \texttt{charTypes} (lista di str): Lista delle scelte dei set di caratteri inserite dall'utente.
+                \1 \textbf{Restituisce}:
+                    \2 \texttt{newList} (lista di int): Lista delle scelte valide e non duplicate dei set di caratteri.
+            \end{outline}
+
+        \subsection*{\texttt{pwStrength(self, password)}}
+            Calcola l'entropia (forza) della password generata.
+            \begin{outline}
+                \1 \textbf{Parametri}:
+                    \2 \texttt{password} (str): La password generata.
+                \1 \textbf{Restituisce}:
+                    \2 \texttt{entropy} (float): L'entropia della password in bit
+            \end{outline}
+
+        \subsection*{\texttt{calcViolation(self, entropy)}}
+            Calcola il numero di tentativi e il tempo necessario per violare la password generata utilizzando un attacco brute force.
+            \begin{outline}
+                \1 \textbf{Parametri}:
+                    \2 \texttt{entropy} (float): L'entropia della password in bit
+                \1 \textbf{Restituisce}:
+                    \2 \texttt{violationInfo} (str): Informazioni sul numero di tentativi e il tempo necessario per un attacco brute force.
+            \end{outline}
+    
+    \section*{Esempio di utilizzo}
+        \begin{lstlisting}[style=smallcode]
+    import random
+    import math
+
+    # Istanziare la classe PasswordGenerator
+    password_gen = PasswordGenerator()
+
+    # Input dell'utente per le scelte dei set di caratteri:
+    choices = password_gen.userInput(['1', '2', '3', '4'])
+
+    # Costruisce la lista di caratteri disponibili per generare la password
+    chars_available = password_gen.buildCharsAvailable(choices)
+
+    # Genera una password di lunghezza 12
+    password = password_gen.buildPassword(12, chars_available)
+    print(f"Password Generata: {password}")
+
+    # Calcola l'entropia della password generata
+    entropy = password_gen.pwStrength(password)
+    print(f"Entropia della Password: {entropy} bit")
+
+    # Calcola il tempo necessario per violare la password
+    violation_info = password_gen.calcViolation(entropy)
+    print(violation_info)
+        \end{lstlisting}
 
 \end{document}
