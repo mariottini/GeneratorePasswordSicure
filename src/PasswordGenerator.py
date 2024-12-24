@@ -142,3 +142,34 @@ class PasswordGenerator:
 
         return f"Se un PC eseguisse un attacco brute force, per violare la password dovrebbe effettuare al massimo {tries:.0f} tentativi.\n" \
                 f"Se il PC esegue l'attacco ad una velcoità di 10^{int(math.log10(triesPerSec))} tentativi al secondo, ci impiegherà {years:.0f} anni / {days:.0f} giorni / {hours:.0f} ore / {minutes:.0f} minuti / {seconds:.2f} secondi."
+
+
+
+# ANTONIO (Lunghezza password)
+
+lenght = input ("Quanti caratteri vuoi nella tua password? Inserisci la quantità  di caratteri che desideri")
+# Chiedo un input da parte dell'utente , in lenght c'è la lunghezza
+
+lowercase = input ("Vuoi che la tua password contenga delle lettere maiuscole? Sì o no?")
+# Chiedo all'utente se dentro la password vuole delle lettere maiuscole
+
+uppercase = input ("Vuoi che la tua password contenga delle lettere minuscole? Sì o no?" )
+# Chiedo all'utente se dentro la password vuole delle lettere minuscole
+
+number = input ("Vuoi che la password contenga dei numeri? Sì o no?")
+# Chiedo all'utente se dentro la password vuole di numeri
+
+specialchars = input ("Vuoi che la tua password contenga dei caratteri speciali? Sì o no?")
+# Chiedo all'utente se dentro la password vuole dei caratteri speciali
+
+# Ora sappiamo la lunghezza della password e se ha numeri e/o caratteri speciali e/o lettere minuscole e/o lettere maiuscole
+
+# Definiamo una funzione che prenda in input i  5 argomenti
+def PasswordGenerator (lenght, lowercase, uppercase, number,specialchars) 
+
+# Inizializiamo una lista vuota che contenga i caratteri
+lista_caratteri =[]
+
+#
+
+
