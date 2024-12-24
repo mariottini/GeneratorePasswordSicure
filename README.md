@@ -27,12 +27,12 @@ Un progetto Python per generare password casuali sicure. Le password vengono cre
 ### Funzionalità Extra
 
 - [x] Valutare la **forza** delle password generate in base a criteri specifici (es. presenza di maiuscole, minuscole, cifre, caratteri speciali).
-- [ ] Creare una **GUI** utilizzando Tkinter.
+- [x] Creare una **GUI** utilizzando Tkinter.
 
 ### Consegna
 
 - [ ] Scrivere **commenti** chiari e dettagliati per il codice.
-- [ ] Scrivere una **documentazione** che spieghi le funzionalità del progetto
+- [x] Scrivere una **documentazione** che spieghi le funzionalità del progetto
 - [ ] Redigere una **relazione** sul processo di sviluppo, includendo scelte tecniche e organizzative.
 
 ## Guida al progetto
