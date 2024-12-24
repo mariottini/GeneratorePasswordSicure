@@ -3,7 +3,7 @@ src/venv/*
 !src/venv/main.py
 !src/venv/PasswordGenerator.py
 !src/venv/gui.py
-
+!src/venv/simple_gui.py
 
 docs/report/*
 docs/documentation/*
@@ -12,6 +12,9 @@ docs/documentation/*
 !docs/report/report.pdf
 !docs/documentation/documentation.tex
 !docs/documentation/documentation.pdf
+
+
+src/__pycache__
 
 
 */*.DS_Store
