@@ -142,3 +142,72 @@ class PasswordGenerator:
 
         return f"Se un PC eseguisse un attacco brute force, per violare la password dovrebbe effettuare al massimo {tries:.0f} tentativi.\n" \
                 f"Se il PC esegue l'attacco ad una velcoità di 10^{int(math.log10(triesPerSec))} tentativi al secondo, ci impiegherà {years:.0f} anni / {days:.0f} giorni / {hours:.0f} ore / {minutes:.0f} minuti / {seconds:.2f} secondi."
+    
+    def pwPattern(self,password):
+        # Converto la password in una lista per iterarla
+        password = list(password)
+        # Liste temporanee per caratteri ripetuti e sequenze (crescenti/decrescenti)
+        repeatedChar = []
+        sequenceChar = []
+        sequenceReverse = []
+        # Contatore per caratteri ripetuti consecutivi e dizionario per riepilogo ripetizioni
+        count = 0
+        dictRepetion={}
+        # Lista definitiva per tutte le sequenze trovate
+        sequenceCharDef = []
+        
+        # Itero attraverso i caratteri della password
+        for i in range(len(password)):
+         # Controllo caratteri consecutivi uguali
+         if(i< len(password)-1 and password[i] == password[i+1]):
+             repeatedChar.append(password[i])
+             count = count + 1 # Incremento il contatore delle ripetizioni
+         elif count >= 1:
+             # Se il contatore è > 1, registro il carattere nel dizionario
+             if(password[i] in dictRepetion):
+               dictRepetion[password[i]] += count
+             else:
+               dictRepetion[password[i]] = count
+             count = 0 # Resetto il contatore
+
+         # Controllo sequenze crescenti (basate sui valori ASCII)
+         if i< len(password)-1 and ord(password[i])+1 == ord(password[i+1]):
+             
+             # Aggiungo il carattere alla sequenza crescente se non già presente
+             if not sequenceChar or sequenceChar[-1] != ord(password[i]):
+                 sequenceChar.append(ord(password[i]))
+             sequenceChar.append(ord(password[i+1]))
+                
+         else:
+             if len(sequenceChar)>2:
+                  # Se la sequenza crescente è valida (almeno 2 elementi), la riconverto in caratteri normali e poi la salvo
+                  sequenceChar = [chr(element) for element in sequenceChar]
+                  sequenceCharDef.append(sequenceChar) 
+             sequenceChar = [] # Resetto la sequenza crescente per poterla usare nuovamente in futuro
+        
+        #stesso processo ma stavolta per salvare le sequenze decrescenti
+         if i < len(password) - 1 and ord(password[i]) - 1 == ord(password[i + 1]):
+            if not sequenceReverse or sequenceReverse[-1] != ord(password[i]):
+                sequenceReverse.append(ord(password[i]))
+            sequenceReverse.append(ord(password[i + 1]))
+                
+         else:
+            if len(sequenceReverse) > 2:
+                sequenceReverse = [chr(element) for element in sequenceReverse]
+                sequenceCharDef.append(sequenceReverse)
+            sequenceReverse = []
+
+        # Restituisco il dizionario delle ripetizioni e tutte le sequenze trovate
+        return dictRepetion,sequenceCharDef
+    
+    def pwPatternPenalty(self, score, dictRepetion, sequenceCharDef):
+       # Penalizza per le ripetizioni
+      for n in dictRepetion.values():
+        score -= (n + 1) ** 2  # Penalità quadratica per le ripetizioni
+
+    # Penalizza per le sequenze di caratteri
+      for sequence in sequenceCharDef:
+        score -= len(sequence) ** 2  # Penalità quadratica per la lunghezza delle sequenze
+
+      return score  # Restituisce il punteggio finale
+
