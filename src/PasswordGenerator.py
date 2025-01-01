@@ -146,29 +146,17 @@ class PasswordGenerator:
 
 
 # ANTONIO (Lunghezza password)
+import string
+import random
+# Definisco una funzione che prenda in input i  4 argomenti
+def PasswordGenerator (Lowercase, Uppercase, Digits,Specialchars):
 
-lenght = input ("Quanti caratteri vuoi nella tua password? Inserisci la quantità  di caratteri che desideri")
-# Chiedo un input da parte dell'utente , in lenght c'è la lunghezza
+# Inizializzo una lista vuota che conterrà tutti  i caratteri della password
+    lista_caratteri =[] 
 
-lowercase = input ("Vuoi che la tua password contenga delle lettere maiuscole? Sì o no?")
-# Chiedo all'utente se dentro la password vuole delle lettere maiuscole
+if Digits == "yes":
+   Digits== random.choice(string.digits)
 
-uppercase = input ("Vuoi che la tua password contenga delle lettere minuscole? Sì o no?" )
-# Chiedo all'utente se dentro la password vuole delle lettere minuscole
-
-number = input ("Vuoi che la password contenga dei numeri? Sì o no?")
-# Chiedo all'utente se dentro la password vuole di numeri
-
-specialchars = input ("Vuoi che la tua password contenga dei caratteri speciali? Sì o no?")
-# Chiedo all'utente se dentro la password vuole dei caratteri speciali
-
-# Ora sappiamo la lunghezza della password e se ha numeri e/o caratteri speciali e/o lettere minuscole e/o lettere maiuscole
-
-# Definiamo una funzione che prenda in input i  5 argomenti
-def PasswordGenerator (lenght, lowercase, uppercase, number,specialchars) 
-
-# Inizializiamo una lista vuota che contenga i caratteri
-lista_caratteri =[]
 
 #
 
