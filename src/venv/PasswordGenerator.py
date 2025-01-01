@@ -171,3 +171,25 @@ class PasswordGenerator:
 
         return f"Se un PC eseguisse un attacco brute force, per violare la password potrebbe effettuare {printTries} tentativi.\n" \
                 f"Se il PC eseguisse l'attacco ad una velcoità di 10^{int(math.log10(triesPerSec))} tentativi al secondo, ci impiegherebbe {time}"
+    
+
+    def dictionary(self):
+        with open ('dictionary.txt') as file:
+            content = file.read()
+            words = content.split()
+        return words
+    
+    def Password_Safety (self,password):
+        password_alpha = ''.join([char for char in password if char.isalpha()])
+        pw_lower = password_alpha.lower()
+        word_list = self.dictionary()
+        word_saver = []
+        for i in range (len(word_list)):
+            if word_list[i].startswith(pw_lower[0]) and len(word_list[i]) == len(pw_lower):  
+                word_saver.append(word_list[i])
+                #print (word_saver)
+                
+        for i in range (len(word_saver)):
+            if pw_lower ==  word_saver[i]:
+                return (f"Parola {word_saver[i]} trovata, password non sicura")
+        return ("Password sicura, nessuna parola trovata") 
