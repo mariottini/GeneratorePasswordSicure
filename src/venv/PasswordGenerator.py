@@ -54,6 +54,39 @@ class PasswordGenerator:
             i += 1
         return self.password
 
+        '''
+        VARIETA'--> Controlla che la password generata abbia almeno un carattere di ciascun tipo scelto dall'utente
+        (minuscole, maiuscole, cifre, caratteri speciali).
+        Se non è soddisfatta, rigenera la password fino a raggiungere la varietà desiderata.
+    '''
+    def ensureVariety(self, length, choices):
+        while True:
+            # Costruisce i caratteri disponibili e genera una password
+            charsAvailable = self.buildCharsAvailable(choices)
+            self.buildPassword(length, charsAvailable)
+
+            # Verifica se la password ha varietà
+            # la variabile c rappresenta ogni carattere della password che viene controllato uno alla volta rispetto a ciascun criterio
+            hasLowercase = any(c in self.lowercase for c in self.password)
+            hasUppercase = any(c in self.uppercase for c in self.password)
+            hasDigits = any(c in self.digits for c in self.password)
+            hasSpecialChars = any(c in self.specialChars for c in self.password)
+
+            # Determina se sono rispettate le scelte dell'utente
+            isValid = True
+            if 1 in choices and not hasLowercase:
+                isValid = False
+            if 2 in choices and not hasUppercase:
+                isValid = False
+            if 3 in choices and not hasDigits:
+                isValid = False
+            if 4 in choices and not hasSpecialChars:
+                isValid = False
+
+            # Se la password è valida, esce dal ciclo
+            if isValid:
+                return self.password
+
     '''
         Converte l'input dell'utente per la scelta dei set di caratteri in una lista di interi    
     '''

@@ -21,9 +21,9 @@ while userList == False:
             "[2] Lettere maiuscole\t"
             "[3] Cifre\t"
             "[4] Caratteri speciali")
-
-charsAvailable = pwGenerator.buildCharsAvailable(userList)
-password = pwGenerator.buildPassword(pwLength, charsAvailable)
+            
+#ensureVariety chiama internamente buildCharsAvailable per costruire la lista di caratteri disponibili.
+password = pwGenerator.ensureVariety(pwLength, userList) 
 print(f"Password → {password}")
 entropy = pwGenerator.pwStrength(password)
 print(f"Entropia → {entropy}")
