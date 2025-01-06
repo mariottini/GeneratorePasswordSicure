@@ -22,7 +22,7 @@ Un progetto Python per generare password casuali sicure. Le password vengono cre
 - [x] Importare il modulo `random` per la generazione casuale dei caratteri.
 - [x] Creare una classe `GeneratorePassword` per contenere la logica di generazione della password.
 - [x] Permettere all'utente di specificare la **lunghezza** della password e i **tipi di caratteri** da includere.
-- [ ] Valutare la **complessità** delle password generate (es. lunghezza e varietà di caratteri).
+- [x] Valutare la **complessità** delle password generate (es. lunghezza e varietà di caratteri).
 
 ### Funzionalità Extra
 
@@ -31,7 +31,7 @@ Un progetto Python per generare password casuali sicure. Le password vengono cre
 
 ### Consegna
 
-- [ ] Scrivere **commenti** chiari e dettagliati per il codice.
+- [x] Scrivere **commenti** chiari e dettagliati per il codice.
 - [x] Scrivere una **documentazione** che spieghi le funzionalità del progetto
 - [ ] Redigere una **relazione** sul processo di sviluppo, includendo scelte tecniche e organizzative.
 

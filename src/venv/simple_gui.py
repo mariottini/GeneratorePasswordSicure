@@ -57,10 +57,11 @@ def generatePw():
     wrappedPw = "\n".join(textwrap.wrap(password, width=40))
     pwLabel.config(text=wrappedPw)
 
+    complexity = pwGenerator.pwComplexity(password)
     entropy = pwGenerator.pwStrength(password)
-    description = pwGenerator.calcViolation(entropy)
+    description = pwGenerator.calcViolation()
     wrappedDesc = "\n".join(textwrap.wrap(description, width=70))
-    descLabel.config(text=f"Entropia: {entropy:.3f}\n{wrappedDesc}")
+    descLabel.config(text=f"Complessità: {complexity}\tEntropia: {entropy:.3f}\n{wrappedDesc}")
 
 # Dimensioni e colori base della finestra
 windowWidth = 600
@@ -209,9 +210,6 @@ window.mainloop()
 
 
 ''' TODO
-    - PWLENGTH > 50 → INSERT \n
-    - ↑ SAME FOR DESCRIPTION ↑
-    - FIX COMMENTS
     - LIGHTER BG FOR LABELS [IDEA]
     - CHECKBOXES WITH SEPARATED LABELS [IDEA]
     - COPY BTN [IDEA]

@@ -15,6 +15,8 @@ class PasswordGenerator:
                             [chr(i) for i in range(91, 97)] + \
                             [chr(i) for i in range(123, 127)]
         self.charsAvailable = []
+        self.complexity = 0
+        self.entropy = 0
         self.password = ""
 
     '''
@@ -80,12 +82,132 @@ class PasswordGenerator:
                 print("Errore sconosciuto.")
                 return False
 
+
+    '''
+        Calcola la complessità secondo una serie di parametri:
+        - Lunghezza della password
+        - Varieta dei set di caratteri
+        - Presenza di parole riconoscibili del vocabolario italiano
+        - Presenza di pattern di caratteri ripetuti o crescenti
+    '''
+    def pwComplexity(self, password):
+        '''Lunghezza'''
+        for i in range(2, 7):
+            if len(password) >= 2**i:
+                self.complexity += 2**i
+        
+        '''Varietà'''
+        hasLowercase = any(c in self.lowercase for c in self.password)
+        hasUppercase = any(c in self.uppercase for c in self.password)
+        hasDigits = any(c in self.digits for c in self.password)
+        hasSpecialChars = any(c in self.specialChars for c in self.password)
+
+        if hasLowercase:
+            self.complexity += len(self.lowercase)
+        if hasUppercase:
+            self.complexity += len(self.uppercase)
+        if hasDigits:
+            self.complexity += len(self.digits)
+        if hasSpecialChars:
+            self.complexity += len(self.specialChars)
+
+        '''Vocabolario''' # Not finished...
+        # with open ("src/assets/dictionaryIT.txt") as file:
+        #     content = file.read()
+        #     wordList = content.split()
+
+        # passwordAlpha = ''.join([char for char in password if char.isalpha()])
+        # pwLower = passwordAlpha.lower()
+        # wordSaver = []
+        # for i in range (len(wordList)):
+        #     if wordList[i].startswith(pwLower[0]) and len(wordList[i]) == len(pwLower):  
+        #         wordSaver.append(wordList[i])
+                
+        # for i in range (len(wordSaver)):
+        #     if pwLower ==  wordSaver[i]:
+        #         self.complexity -= len(wordSaver[i])
+
+
+        '''Pattern'''
+        # Converto la password in una lista per iterarla
+        password = list(password)
+        # Liste temporanee per caratteri ripetuti e sequenze (crescenti/decrescenti)
+        repeatedChar = []
+        sequenceChar = []
+        sequenceReverse = []
+        # Contatore per caratteri ripetuti consecutivi e dizionario per riepilogo ripetizioni
+        count = 0
+        dictRepetion={}
+        # Lista definitiva per tutte le sequenze trovate
+        sequenceCharDef = []
+        
+        # Itero attraverso i caratteri della password
+        for i in range(len(password)):
+            # Controllo caratteri consecutivi uguali
+            if(i< len(password)-1 and password[i] == password[i+1]):
+                repeatedChar.append(password[i])
+                count = count + 1 # Incremento il contatore delle ripetizioni
+            elif count >= 1:
+                # Se il contatore è > 1, registro il carattere nel dizionario
+                if(password[i] in dictRepetion):
+                    dictRepetion[password[i]] += count
+                else:
+                    dictRepetion[password[i]] = count
+                count = 0 # Resetto il contatore
+
+            # Controllo sequenze crescenti (basate sui valori ASCII)
+            if i< len(password)-1 and ord(password[i])+1 == ord(password[i+1]):
+                
+                # Aggiungo il carattere alla sequenza crescente se non già presente
+                if not sequenceChar or sequenceChar[-1] != ord(password[i]):
+                    sequenceChar.append(ord(password[i]))
+                sequenceChar.append(ord(password[i+1]))
+                
+            else:
+                if len(sequenceChar)>2:
+                    # Se la sequenza crescente è valida (almeno 2 elementi), la riconverto in caratteri normali e poi la salvo
+                    sequenceChar = [chr(element) for element in sequenceChar]
+                    sequenceCharDef.append(sequenceChar) 
+                sequenceChar = [] # Resetto la sequenza crescente per poterla usare nuovamente in futuro
+        
+            # stesso processo ma stavolta per salvare le sequenze decrescenti
+            if i < len(password) - 1 and ord(password[i]) - 1 == ord(password[i + 1]):
+                if not sequenceReverse or sequenceReverse[-1] != ord(password[i]):
+                    sequenceReverse.append(ord(password[i]))
+                sequenceReverse.append(ord(password[i + 1]))
+                    
+            else:
+                if len(sequenceReverse) > 2:
+                    sequenceReverse = [chr(element) for element in sequenceReverse]
+                    sequenceCharDef.append(sequenceReverse)
+                sequenceReverse = []
+
+        for key,value in dictRepetion.items():
+            print(f"Carattere ripetuto → {key} (x{value})")
+
+        for sequence in sequenceCharDef:
+            print(f"Sequenza crescente/decrescente → {sequence}")
+        
+        # Penalizza per le ripetizioni
+        for n in dictRepetion.values():
+            self.complexity -= (n + 1)  # Penalità per le ripetizioni
+         # Penalizza per le sequenze di caratteri
+        for sequence in sequenceCharDef:
+            self.complexity -= len(sequence)  # Penalità per la lunghezza delle sequenze
+
+
+        # Restituisco il dizionario delle ripetizioni e tutte le sequenze trovate
+
+        return self.complexity
+
+
+
     '''
         Calcola l'entropia della password generata.
         [Entropia → Misurazione in bit dell'imprevedibilità di una password]
     '''
     def pwStrength(self, password):
-        entropy = 0  # Inizializza l'entropia a zero
+        self.entropy = 0  # Inizializza l'entropia a zero
         pwToList = list(password)  # Converte la password in una lista di caratteri
         # Inizializzazione booleani per aggiornare la variante dei carateri solamente una volta per ogni set di caratteri
         hasLowercase = False
@@ -97,43 +219,43 @@ class PasswordGenerator:
             for element in pwToList:
                 # Controlla se il carattere è in lowercase
                 if element in self.lowercase and not hasLowercase:
-                    entropy += 26
+                    self.entropy += 26
                     hasLowercase = True
                     continue
 
                 # Controlla se il carattere è in uppercase
                 elif element in self.uppercase and not hasUppercase:
-                    entropy += 26
+                    self.entropy += 26
                     hasUppercase = True
                     continue
 
                 # Controlla se il carattere è un numero
                 elif element in self.digits and not hasDigits:
-                    entropy += 10
+                    self.entropy += 10
                     hasDigits = True
                     continue
 
                 # Controlla se il carattere è un carattere speciale
                 elif element in self.specialChars and not hasSpecialChars:
-                    entropy += 32
+                    self.entropy += 32
                     hasSpecialChars = True
                     continue
 
-                if entropy <= 0: 
+                if self.entropy <= 0: 
                     raise ValueError
                 
         except ValueError:
             return "La variante dei caratteri utilizzati nella password è inferiore o uguale a 0"
         
         # Calcola l'entropia totale
-        entropy = math.log2(entropy) * len(password)
-        return entropy
+        self.entropy = math.log2(self.entropy) * len(password)
+        return self.entropy
     
     '''
         Calcola numero di tentativi e tempo necessari per violare la password generata
     '''
-    def calcViolation(self, entropy):
-        tries = 2**entropy # Numero massimo di tentativi per violare la password
+    def calcViolation(self):
+        tries = 2**self.entropy # Numero massimo di tentativi per violare la password
         triesPerSec = 10**9 # Numero indicativo di tentativi al secondo compiuti dal PC attaccante
         # Tempo necessari per violare la password in secondi, minuti, ore
         seconds = tries/triesPerSec
