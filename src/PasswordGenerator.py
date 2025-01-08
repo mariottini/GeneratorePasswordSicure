@@ -148,16 +148,36 @@ class PasswordGenerator:
 # ANTONIO (Lunghezza password)
 import string
 import random
+
+
+number = input
+
+symbol = input
 # Definisco una funzione che prenda in input i  4 argomenti
-def PasswordGenerator (Lowercase, Uppercase, Digits,Specialchars):
+def PasswordGenerator (Lowercase, Uppercase, number,symbol):
 
 # Inizializzo una lista vuota che conterrà tutti  i caratteri della password
     lista_caratteri =[] 
 
-if Digits == "yes":
-   Digits== random.choice(string.digits)
-
+if number == "yes":
+   number== random.choice(string.digits)
+   lista_caratteri.append(Digits)
 
 #
+if symbol == "yes": 
+     symbol == random.choice (["?","!","^","_","@","$","%"])
+lista_caratteri.append(Specialchars)
 
+
+numero_lettere = int(length) - len(lista_caratteri)
+
+for index in range(numero_lettere):
+
+
+   lista_caratteri.append(random.choice(string.ascii_letters))
+
+
+random.shuffle(lista_caratteri)
+
+password = "".join(lista_caratteri)
 
