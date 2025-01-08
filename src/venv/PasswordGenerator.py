@@ -91,6 +91,7 @@ class PasswordGenerator:
         - Presenza di pattern di caratteri ripetuti o crescenti
     '''
     def pwComplexity(self, password):
+        self.complexity = 0  # Inizializza la complessità a zero
         '''Lunghezza'''
         for i in range(2, 7):
             if len(password) >= 2**i:
@@ -194,9 +195,6 @@ class PasswordGenerator:
          # Penalizza per le sequenze di caratteri
         for sequence in sequenceCharDef:
             self.complexity -= len(sequence)  # Penalità per la lunghezza delle sequenze
-
-
-        # Restituisco il dizionario delle ripetizioni e tutte le sequenze trovate
 
         return self.complexity
 
